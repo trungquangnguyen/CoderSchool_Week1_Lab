@@ -66,14 +66,25 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 320.0
     }
-    /*
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let vc = segue.destinationViewController as! PhotoDetailViewController
+        let indexPath = self.photosTableView.indexPathForCell(sender as! UITableViewCell)
+        
+        let dic = self.dataArray![indexPath!.row]
+        let image = dic["images"] as! NSDictionary
+        let lowResolution = image["standard_resolution"] as! NSDictionary
+        let urlImage = lowResolution["url"] as! String
+        vc.photoUrl = urlImage
     }
-    */
 
 }
