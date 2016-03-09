@@ -11,38 +11,18 @@ import AFNetworking
 
 class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var photosTableView: UITableView!
-
+    let refreshControl =  UIRefreshControl()
     var dataArray:Array<NSDictionary>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.photosTableView.dataSource = self
         self.photosTableView.delegate = self
-
-        // Do any additional setup after loading the view.
-        let clientId = "e05c462ebd86446ea48a5af73769b602"
-        let url = NSURL(string:"https://api.instagram.com/v1/media/popular?client_id=\(clientId)")
-        let request = NSURLRequest(URL: url!)
-        let session = NSURLSession(
-            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
-            delegate:nil,
-            delegateQueue:NSOperationQueue.mainQueue()
-        )
         
-        let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
-            completionHandler: { (dataOrNil, response, error) in
-                if let data = dataOrNil {
-                    if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-                        data, options:[]) as? NSDictionary {
-//                            NSLog("response: \(responseDictionary)")
-                            print("response: \(responseDictionary)")
-                            self.dataArray = responseDictionary["data"] as? [NSDictionary]
-                            self.photosTableView.reloadData()
-                    }
-                }
-        });
-        task.resume()
-    }
+        refreshControl.addTarget(self, action:"refreshControl:", forControlEvents: UIControlEvents.ValueChanged)
+        self.photosTableView.insertSubview(self.refreshControl, atIndex: 0)
+        self.loadData()
+           }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -70,7 +50,37 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
-
+    //MARK: - refreshControl
+    func refreshControl(sender: UIRefreshControl){
+        self.loadData()
+    }
+    func loadData(){
+        self.refreshControl.beginRefreshing()
+        let clientId = "e05c462ebd86446ea48a5af73769b602"
+        let url = NSURL(string:"https://api.instagram.com/v1/media/popular?client_id=\(clientId)")
+        let request = NSURLRequest(URL: url!)
+        let session = NSURLSession(
+            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
+            delegate:nil,
+            delegateQueue:NSOperationQueue.mainQueue()
+        )
+        
+        let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
+            completionHandler: { (dataOrNil, response, error) in
+                if let data = dataOrNil {
+                    if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
+                        data, options:[]) as? NSDictionary {
+                            //                            NSLog("response: \(responseDictionary)")
+                            print("response: \(responseDictionary)")
+                            self.dataArray = responseDictionary["data"] as? [NSDictionary]
+                            self.photosTableView.reloadData()
+                    }
+                }
+                self.refreshControl.endRefreshing()
+                
+        });
+        task.resume()
+    }
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
