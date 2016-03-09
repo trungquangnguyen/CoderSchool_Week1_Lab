@@ -7,13 +7,17 @@
 //
 
 import UIKit
+import AFNetworking
 
-class PhotosViewController: UIViewController {
+class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    @IBOutlet weak var photosTableView: UITableView!
 
     var dataArray:Array<NSDictionary>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.photosTableView.dataSource = self
+        self.photosTableView.delegate = self
 
         // Do any additional setup after loading the view.
         let clientId = "e05c462ebd86446ea48a5af73769b602"
@@ -30,9 +34,10 @@ class PhotosViewController: UIViewController {
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
-                            NSLog("response: \(responseDictionary)")
-                            
+//                            NSLog("response: \(responseDictionary)")
+                            print("response: \(responseDictionary)")
                             self.dataArray = responseDictionary["data"] as? [NSDictionary]
+                            self.photosTableView.reloadData()
                     }
                 }
         });
@@ -44,7 +49,23 @@ class PhotosViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK tableViewDatasource
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell") as! PhotoCell
+        let dic = self.dataArray![indexPath.row]
+        let image = dic["images"] as! NSDictionary
+        let lowResolution = image["low_resolution"] as! NSDictionary
+        let urlImage = lowResolution["url"] as! String
+        cell.photoImageView.setImageWithURL(NSURL(string: urlImage)!)
+        return cell
+    }
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.dataArray?.count ?? 0
+    }
 
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 320.0
+    }
     /*
     // MARK: - Navigation
 

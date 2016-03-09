@@ -12,6 +12,7 @@
 		1031E4221C904CA50000FFE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1031E4211C904CA50000FFE9 /* Assets.xcassets */; };
 		1031E4251C904CA50000FFE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1031E4231C904CA50000FFE9 /* LaunchScreen.storyboard */; };
 		1040BEEC1C904E2E008D0EC8 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1040BEEB1C904E2E008D0EC8 /* PhotosViewController.swift */; };
+		1040BEF01C90524D008D0EC8 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1040BEEF1C90524D008D0EC8 /* PhotoCell.swift */; };
 		AF3FFAE0A35F1BEB3B591DE5 /* Pods_Instagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CCA35128111320E570E013C /* Pods_Instagram.framework */; };
 /* End PBXBuildFile section */
 
@@ -22,7 +23,8 @@
 		1031E4211C904CA50000FFE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1031E4241C904CA50000FFE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1031E4261C904CA50000FFE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1040BEEB1C904E2E008D0EC8 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		1040BEEB1C904E2E008D0EC8 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotosViewController.swift; path = ../PhotosViewController.swift; sourceTree = "<group>"; };
+		1040BEEF1C90524D008D0EC8 /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		5CCA35128111320E570E013C /* Pods_Instagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Instagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84393E00AE1595F4ADBC072F /* Pods-Instagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Instagram/Pods-Instagram.debug.xcconfig"; sourceTree = "<group>"; };
 		DE09997342B7701AC10C5896 /* Pods-Instagram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram.release.xcconfig"; path = "Pods/Target Support Files/Pods-Instagram/Pods-Instagram.release.xcconfig"; sourceTree = "<group>"; };
@@ -61,14 +63,31 @@
 		1031E4191C904CA50000FFE9 /* Instagram */ = {
 			isa = PBXGroup;
 			children = (
+				1040BEED1C905219008D0EC8 /* View */,
+				1040BEEE1C905219008D0EC8 /* ViewController */,
 				1031E41A1C904CA50000FFE9 /* AppDelegate.swift */,
 				1031E41E1C904CA50000FFE9 /* Main.storyboard */,
 				1031E4211C904CA50000FFE9 /* Assets.xcassets */,
 				1031E4231C904CA50000FFE9 /* LaunchScreen.storyboard */,
 				1031E4261C904CA50000FFE9 /* Info.plist */,
-				1040BEEB1C904E2E008D0EC8 /* PhotosViewController.swift */,
 			);
 			path = Instagram;
+			sourceTree = "<group>";
+		};
+		1040BEED1C905219008D0EC8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1040BEEF1C90524D008D0EC8 /* PhotoCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1040BEEE1C905219008D0EC8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1040BEEB1C904E2E008D0EC8 /* PhotosViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		20B0B861B714CD79E6E3D2CE /* Pods */ = {
@@ -212,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1031E41B1C904CA50000FFE9 /* AppDelegate.swift in Sources */,
+				1040BEF01C90524D008D0EC8 /* PhotoCell.swift in Sources */,
 				1040BEEC1C904E2E008D0EC8 /* PhotosViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
